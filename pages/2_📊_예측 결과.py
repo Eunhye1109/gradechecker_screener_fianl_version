@@ -72,7 +72,10 @@ st.caption(f'현재 표시: {len(df_view):,}건')
 
 # ── 결과 테이블 ────────────────────────────────────────────────
 def highlight_risk(row):
-    p = row['재분류_확률']
+    try:
+        p = float(row['재분류_확률'])
+    except:
+        return [''] * len(row)
     if p >= 0.80:  return ['background-color: #FFEBEB'] * len(row)
     elif p >= thr: return ['background-color: #FFF0E0'] * len(row)
     else:          return [''] * len(row)
